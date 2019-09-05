@@ -126,25 +126,25 @@ class ScorePad extends lit_element__WEBPACK_IMPORTED_MODULE_0__["LitElement"] {
     this.router = new navigo__WEBPACK_IMPORTED_MODULE_1___default.a(root, useHash, hash);
 
     this.router
-        .on({
-            ':id': function (params) {
-              // A scoresheet was specified, validate it.
-              console.log('scoresheet id');
-              fetch(`/api/scoresheet/${params.id}`).then((response) => {
-                console.log(response.json());
-              });
-            },
-            '*': function () {
-              // No scoresheet specified. Create a new one.
-              console.log('no id');
-              fetch(`/api/scoresheet`, {
-                method: 'post'
-              }).then((response) => {
-                console.log(response.json());
-              });
-            }
-        })
-        .resolve();
+      .on({
+        ':id': function(params) {
+          // A scoresheet was specified, validate it.
+          console.log('scoresheet id');
+          fetch(`/api/scoresheet/${params.id}`).then(response => {
+            console.log(response.json());
+          });
+        },
+        '*': function() {
+          // No scoresheet specified. Create a new one.
+          console.log('no id');
+          fetch(`/api/scoresheet`, {
+            method: 'post'
+          }).then(response => {
+            console.log(response.json());
+          });
+        }
+      })
+      .resolve();
 
     // Set initial values (if any) for component properties.
     this.name = 'World';
@@ -160,6 +160,7 @@ class ScorePad extends lit_element__WEBPACK_IMPORTED_MODULE_0__["LitElement"] {
 // Note: Your element must have a hypen in the name (for example, "hello-world"). It's a requirement
 // so that our components don't collide with future additions to HTML.
 customElements.define('scorepad-app', ScorePad);
+
 
 /***/ }),
 
@@ -1084,7 +1085,7 @@ UpdatingElement.finalized = true;
 /*!*************************************************!*\
   !*** ./node_modules/lit-element/lit-element.js ***!
   \*************************************************/
-/*! exports provided: defaultConverter, notEqual, UpdatingElement, customElement, property, query, queryAll, eventOptions, html, svg, TemplateResult, SVGTemplateResult, supportsAdoptingStyleSheets, CSSResult, unsafeCSS, css, LitElement */
+/*! exports provided: html, svg, TemplateResult, SVGTemplateResult, LitElement, defaultConverter, notEqual, UpdatingElement, customElement, property, query, queryAll, eventOptions, supportsAdoptingStyleSheets, CSSResult, unsafeCSS, css */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

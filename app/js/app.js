@@ -25,25 +25,25 @@ export class ScorePad extends LitElement {
     this.router = new Navigo(root, useHash, hash);
 
     this.router
-        .on({
-            ':id': function (params) {
-              // A scoresheet was specified, validate it.
-              console.log('scoresheet id');
-              fetch(`/api/scoresheet/${params.id}`).then((response) => {
-                console.log(response.json());
-              });
-            },
-            '*': function () {
-              // No scoresheet specified. Create a new one.
-              console.log('no id');
-              fetch(`/api/scoresheet`, {
-                method: 'post'
-              }).then((response) => {
-                console.log(response.json());
-              });
-            }
-        })
-        .resolve();
+      .on({
+        ':id': function(params) {
+          // A scoresheet was specified, validate it.
+          console.log('scoresheet id');
+          fetch(`/api/scoresheet/${params.id}`).then(response => {
+            console.log(response.json());
+          });
+        },
+        '*': function() {
+          // No scoresheet specified. Create a new one.
+          console.log('no id');
+          fetch(`/api/scoresheet`, {
+            method: 'post'
+          }).then(response => {
+            console.log(response.json());
+          });
+        }
+      })
+      .resolve();
 
     // Set initial values (if any) for component properties.
     this.name = 'World';
