@@ -26,21 +26,29 @@ export class ScorePad extends LitElement {
 
     this.router
       .on({
-        ':id': function(params) {
+        ':id': params => {
           // A scoresheet was specified, validate it.
-          console.log('scoresheet id');
-          fetch(`/api/scoresheet/${params.id}`).then(response => {
-            console.log(response.json());
-          });
+          fetch(`/api/scoresheet/${params.id}`)
+            .then(response => {
+              return response.json();
+            })
+            .then(result => {
+              // If we got back the same ID then we load up the scoresheet data.
+
+              console.log(result);
+            });
         },
-        '*': function() {
+        '*': () => {
           // No scoresheet specified. Create a new one.
-          console.log('no id');
           fetch(`/api/scoresheet`, {
             method: 'post'
-          }).then(response => {
-            console.log(response.json());
-          });
+          })
+            .then(response => {
+              return response.json();
+            })
+            .then(result => {
+              this.router.navigate(`${result.id}`);
+            });
         }
       })
       .resolve();
@@ -51,7 +59,7 @@ export class ScorePad extends LitElement {
 
   render() {
     return html`
-      <p>Hello, ${this.name}!</p>
+      <h1>ScorePad</h1>
     `;
   }
 }

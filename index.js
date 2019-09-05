@@ -1,17 +1,40 @@
 const express = require('express');
+const Datastore = require('nedb');
+
 const app = express();
-const port = 3000;
+let db = new Datastore({ filename: 'scoresheets.db', autoload: true });
+
+const port = 80;
+// You can issue commands right away
+
+function createNewScoresheet(res) {
+  var scoresheet = {};
+
+  db.insert(scoresheet, (err, newScoresheet) => {
+    // Callback is optional
+    // newDoc is the newly inserted document, including its _id
+    // newDoc has no key called notToBeSaved since its value was undefined
+    res.json({ id: newScoresheet._id });
+  });
+}
 
 app.use(express.static('./app'));
 
 app.get('/api/scoresheet/:id', (req, res) => {
-  if (req.params.id === '92485') {
-    res.json({ id: '92485' });
-  } else {
-    res.json({ id: '25235' });
+  // Validate the the scoresheet ID. If it's valid return the same ID.
+  if (req.params.id) {
+    db.find({ _id: req.params.id }, (err, docs) => {
+      if (docs.length === 0) {
+        // If the ID isn't valid, create a new scoresheet and return that ID.
+        createNewScoresheet(res);
+      } else {
+        res.json({ id: docs[0]._id });
+      }
+    });
   }
 });
 
-app.post('/api/scoresheet', (req, res) => res.json({ id: '02394' }));
+// If you don't supply an ID then a new scoresheet will be created and the ID returned.
+app.post('/api/scoresheet', (req, res) => createNewScoresheet(res));
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
